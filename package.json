@@ -1,0 +1,26 @@
+{
+	"name":"Proser",
+	"description":"Collaborative Markdown Editor",
+	"version":"0.1.0",
+	"author":"Abram Kash",
+	"repository":{
+		"type":"git",
+		"url":"https://github.com/0x263b/proser.git"
+	},
+	"license":"MIT",
+	"engines":{
+		"node":"5.x"
+	},
+	"main":"app.js",
+	"scripts":{
+		"start":"node app.js"
+	},
+	"dependencies":{
+		"express":"4.x",
+		"hbs":"4.x",
+		"marked":"0.3.x",
+		"mongoose":"4.4.x",
+		"mongoose-timestamp":"0.5.x",
+		"socket.io":"1.4.x"
+	}
+}

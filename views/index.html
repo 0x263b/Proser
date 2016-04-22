@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>{{{title}}}</title>
+	<link rel="stylesheet" href="/css/markup.css" type="text/css">
+	<link rel="stylesheet" href="/css/style.css" type="text/css">
+
+</head>
+<body>
+
+	<header>
+		<h3>
+			<a href="/" class="logo">Write <small>New</small></a>
+		</h3>
+		<div id="extras">
+			<a id="mode" class="edit" href="#">Edit</a>
+		</div>
+	</header>
+
+	<div class="wrapper formatted">
+		<div id="timestamp">{{{updatedAt}}}</div>
+		<div id="formatted">{{{formatted}}}</div>
+	</div>
+
+	<div class="wrapper raw">
+		<textarea id="text" disabled placeholder="It was a dark and stormy night...">{{{raw}}}</textarea>
+	</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/marked.js"></script>
+<script src="/js/script.js"></script>
+<script type="text/javascript">
+	var timeField = document.getElementById('timestamp'),
+		textField = document.getElementById('text')
+
+	var formatted_wrapper = document.querySelector(".wrapper.formatted")
+	var text_wrapper = document.querySelector(".wrapper.raw")
+
+	(function(){
+		if(timeField.innerHTML != "") {
+			date = new Date(timeField.innerHTML)
+			stamp = "Updated " + date.toLocaleDateString() + ", " + date.toLocaleTimeString()
+			timeField.innerHTML = stamp
+		}
+	})()
+
+	// toggle editor mode
+	document.querySelector('#mode').addEventListener('click', function(e) {
+		e.preventDefault()
+		var text = this.textContent
+
+		if(this.classList.contains('enabled')) {
+			this.classList.remove('enabled')
+			textField.disabled = true
+			formatted_wrapper.style.marginLeft = "auto"
+			text_wrapper.style.left = "-620px"
+		} else {
+			this.classList.add('enabled')
+			textField.disabled = false
+			formatted_wrapper.style.marginLeft = "620px"
+			text_wrapper.style.left = 0
+			
+		}
+	})
+
+</script>
+</body>
+</html>
