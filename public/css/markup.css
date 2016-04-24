@@ -11,7 +11,7 @@ body {
 }
 
 html {
-	font-family: "Roboto", "Helvetica Neue", "Open Sans", "Segoe UI", Helvetica, Arial, sans-serif;
+	font-family: -apple-system, BlinkMacSystemFont, "Roboto", "Open Sans", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 16px;
 	line-height: 1.5;
 }
@@ -29,12 +29,20 @@ body {
 }
 
 a {
-	color: #0288d1; 
+	color: #0288d1;
+	text-decoration: none;
+	border-bottom: 2px solid #0288d1;
+}
+
+a:visited {
+	color: #673AB7;
+	border-color: #673AB7;
 }
 
 a:hover,
 a:focus {
-	text-decoration: underline;
+	color: #000;
+	border-color: #000;
 }
 
 /* Headings */
@@ -148,6 +156,9 @@ code, tt {
 	border-radius: 3px;
 	background-color: #f8f8f8; }
 
+pre, code {
+	font-family: "Roboto Mono", "Source Code Pro", "Menlo", "Consolas", monospace; }
+
 pre code {
 	margin: 0;
 	padding: 0;
@@ -159,7 +170,7 @@ pre {
 	background-color: #f8f8f8;
 	border: 1px solid #ddd;
 	border-radius: 3px;
-	font-size: 13px;
+	font-size: 14px;
 	line-height: 19px;
 	overflow: auto;
 	padding: 6px 10px;

@@ -2,69 +2,37 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 	<title>{{{title}}}</title>
 	<link rel="stylesheet" href="/css/markup.css" type="text/css">
 	<link rel="stylesheet" href="/css/style.css" type="text/css">
-
 </head>
+
 <body>
 
-	<header>
-		<h3>
-			<a href="/" class="logo">Write <small>New</small></a>
-		</h3>
-		<div id="extras">
-			<a id="mode" class="edit" href="#">Edit</a>
-		</div>
-	</header>
+<nav>
+	<a id="edit" href="#">
+		<svg height="40" width="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="20" r="20"></circle>
+            <path d="M11,25.2525 L11,29.0025 L14.75,29.0025 L25.81,17.9425 L22.06,14.1925 L11,25.2525 L11,25.2525 Z M28.71,15.0425 C29.1,14.6525 29.1,14.0225 28.71,13.6325 L26.37,11.2925 C25.98,10.9025 25.35,10.9025 24.96,11.2925 L23.13,13.1225 L26.88,16.8725 L28.71,15.0425 L28.71,15.0425 Z" fill="white"></path>
+		</svg>
+	</a>
+</nav>
 
-	<div class="wrapper formatted">
-		<div id="timestamp">{{{updatedAt}}}</div>
+<div id="main">
+	<div class="raw">
+		<textarea id="text" readonly placeholder="It was a dark and stormy night...">{{{raw}}}</textarea>
+	</div>
+
+	<div class="formatted">
 		<div id="formatted">{{{formatted}}}</div>
+		<div id="timestamp">{{{updatedAt}}}</div>
 	</div>
-
-	<div class="wrapper raw">
-		<textarea id="text" disabled placeholder="It was a dark and stormy night...">{{{raw}}}</textarea>
-	</div>
+</div>
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/marked.js"></script>
 <script src="/js/script.js"></script>
-<script type="text/javascript">
-	var timeField = document.getElementById('timestamp'),
-		textField = document.getElementById('text')
-
-	var formatted_wrapper = document.querySelector(".wrapper.formatted")
-	var text_wrapper = document.querySelector(".wrapper.raw")
-
-	(function(){
-		if(timeField.innerHTML != "") {
-			date = new Date(timeField.innerHTML)
-			stamp = "Updated " + date.toLocaleDateString() + ", " + date.toLocaleTimeString()
-			timeField.innerHTML = stamp
-		}
-	})()
-
-	// toggle editor mode
-	document.querySelector('#mode').addEventListener('click', function(e) {
-		e.preventDefault()
-		var text = this.textContent
-
-		if(this.classList.contains('enabled')) {
-			this.classList.remove('enabled')
-			textField.disabled = true
-			formatted_wrapper.style.marginLeft = "auto"
-			text_wrapper.style.left = "-620px"
-		} else {
-			this.classList.add('enabled')
-			textField.disabled = false
-			formatted_wrapper.style.marginLeft = "620px"
-			text_wrapper.style.left = 0
-			
-		}
-	})
-
-</script>
 </body>
 </html>

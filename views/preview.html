@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>{{{title}}}</title>
+	<link rel="stylesheet" href="/css/markup.css" type="text/css">
+	<link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+<body>
+
+<div id="main">
+	<div class="formatted">
+		<div id="formatted">{{{formatted}}}</div>
+		<div id="timestamp">{{{updatedAt}}}</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+"use strict"
+
+var timestamp = document.getElementById('timestamp')
+
+if (timestamp.innerHTML != "") {
+	var date = new Date(timestamp.innerHTML)
+	var update = "Updated " + date.toLocaleDateString() + ", " + date.toLocaleTimeString()
+	timestamp.innerHTML = update
+}
+</script>
+</body>
+</html>

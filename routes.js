@@ -2,6 +2,7 @@ var mongoose = require('mongoose'),
 	    File = mongoose.model('File'),
 	  marked = require('marked')
 
+// Heroku-like random IDs
 haiku = function() {
 	var adjs, nouns, rnd
 	adjs = ["autumn", "hidden", "bitter", "misty", "silent", "empty", "dry", "dark", "summer", "icy", "delicate", "quiet", "white", "cool", "spring", "winter", "patient", "twilight", "dawn", "crimson", "wispy", "weathered", "blue", "billowing", "broken", "cold", "damp", "falling", "frosty", "green", "long", "late", "lingering", "bold", "little", "morning", "muddy", "old", "red", "rough", "still", "small", "sparkling", "throbbing", "shy", "wandering", "withered", "wild", "black", "young", "holy", "solitary", "fragrant", "aged", "snowy", "proud", "floral", "restless", "divine", "polished", "ancient", "purple", "lively", "nameless"]
@@ -23,14 +24,14 @@ exports.index = function(req, res) {
 		}
 
 	// Start keygen process
-	if (foundUniqueKey == false) {
+	if (foundUniqueKey === false) {
 		keygen()
 	}
 
 	res.redirect(key)
 }
 
-exports.read = function(req, res) {
+exports.edit = function(req, res) {
 	var token = req.params.token
 	File.find({ token: token }, function (err, file, count) {
 		// Flatten array
@@ -43,11 +44,49 @@ exports.read = function(req, res) {
 		}
 
 		res.render('views/index', {
-			title:     err || file.raw == undefined ? "Write" : file.raw.split(/\n/)[0].replace(/^#+/g, ""),
+			title:     err || file.raw == undefined ? "Proser" : file.raw.split(/\n/)[0].replace(/^#+/g, ""),
 			raw:       err || file.raw == undefined ? "" : file.raw,
 			formatted: err || file.formatted == undefined ? "" : file.formatted,
 			updatedAt: err || file.updatedAt == undefined ? "" : file.updatedAt,
-			empty:     err || file.raw == ""
+			empty:     err || file.raw == "",
+			token:     err || token
 		})
 	})
 }
+
+exports.preview = function(req, res) {
+	var token = req.params.token
+	File.find({ token: token }, function (err, file, count) {
+		// Flatten array
+		if (file[0]) {
+			file = file[0]
+		}
+
+		if (typeof file.raw !== "undefined") {
+			file.formatted = marked(file.raw)
+		}
+
+		res.render('views/preview', {
+			title:     err || file.raw == undefined ? "Proser" : file.raw.split(/\n/)[0].replace(/^#+/g, ""),
+			raw:       err || file.raw == undefined ? "" : file.raw,
+			formatted: err || file.formatted == undefined ? "" : file.formatted,
+			updatedAt: err || file.updatedAt == undefined ? "" : file.updatedAt,
+			empty:     err || file.raw == "",
+			token:     err || token
+		})
+	})
+}
+
+exports.raw = function(req, res) {
+	var token = req.params.token
+	File.find({ token: token }, function (err, file, count) {
+		// Flatten array
+		if (file[0]) {
+			file = file[0]
+		}
+
+		res.set('Content-Type', 'text/markdown')
+		res.send(err || file.raw == undefined ? "" : file.raw)
+	})
+}
+
