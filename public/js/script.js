@@ -92,7 +92,7 @@ var remove_text = function(pos, length) {
 }
 
 // Send the text to the socket
-var sendMsg = function() {
+var send_msg = function() {
 	setTimeout(function(){
 		if (text_area.value !== storedContent) {
 			storedContent = text_area.value
@@ -106,14 +106,14 @@ var sendMsg = function() {
 
 // Bind events
 if (text_area.addEventListener) {
-	text_area.addEventListener('change', sendMsg, false)
-	text_area.addEventListener('keyup', sendMsg, false)
+	text_area.addEventListener('change', send_msg, false)
+	text_area.addEventListener('keyup', send_msg, false)
 } else if(text_area.attachEvent) {
-	text_area.attachEvent('onchange', sendMsg)
-	text_area.attachEvent('onkeyup', sendMsg)
+	text_area.attachEvent('onchange', send_msg)
+	text_area.attachEvent('onkeyup', send_msg)
 } else {
-	text_area.onchange = sendMsg
-	text_area.onkeydown = sendMsg
+	text_area.onchange = send_msg
+	text_area.onkeydown = send_msg
 }
 
 // Focus #text

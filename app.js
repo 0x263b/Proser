@@ -1,3 +1,5 @@
+"use strict"
+
 var    express = require('express'),
 	       app = module.exports = express(),
 	    server = app.listen(3000),
