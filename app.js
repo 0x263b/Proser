@@ -2,7 +2,7 @@
 
 var    express = require('express'),
 	       app = module.exports = express(),
-	    server = app.listen(3000),
+	    server = app.listen(3030),
 	        io = require('socket.io').listen(server),
 	        db = require('./db'),
 	  mongoose = require('mongoose'),
