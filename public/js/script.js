@@ -58,7 +58,9 @@ var replace_text = function(newText, transformCursor) {
 	var scrollTop = text_area.scrollTop
 	text_area.value = newText
 	storedContent = text_area.value // Not done on one line so the browser can do newline conversion.
-	if (text_area.scrollTop !== scrollTop) text_area.scrollTop = scrollTop
+	if (text_area.scrollTop !== scrollTop) {
+		text_area.scrollTop = scrollTop
+	}
 
 	// Setting the selection moves the cursor. We'll just have to let your
 	// cursor drift if the element isn't active, though usually users don't
@@ -97,20 +99,20 @@ var send_msg = function() {
 		if (text_area.value !== storedContent) {
 			storedContent = text_area.value
 			apply_change(storedContent, text_area.value.replace(/\r\n/g, '\n'))
-			formatted.innerHTML = marked(text_area.value)
 			socket.emit('msg', [storedContent])
+			formatted.innerHTML = marked(text_area.value)
 		}
-	}, 4)
+	}, 0)
 }
 
 
 // Bind events
 if (text_area.addEventListener) {
 	text_area.addEventListener('change', send_msg, false)
-	text_area.addEventListener('keyup', send_msg, false)
+	text_area.addEventListener('keydown', send_msg, false)
 } else if(text_area.attachEvent) {
 	text_area.attachEvent('onchange', send_msg)
-	text_area.attachEvent('onkeyup', send_msg)
+	text_area.attachEvent('keydown', send_msg)
 } else {
 	text_area.onchange = send_msg
 	text_area.onkeydown = send_msg
