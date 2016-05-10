@@ -64,15 +64,12 @@ io.sockets.on('connection', function (socket) {
 var routes = require('./routes.js')
 
 app.get('/', routes.index)
-app.get('/:token', routes.edit)
-app.get('/:token/preview', routes.preview)
-app.get('/:token/raw', routes.raw)
+app.get('/:token(\\w+-\\w+-\\d+)/', routes.edit)
+app.get('/:token(\\w+-\\w+-\\d+)/preview', routes.preview)
+app.get('/:token(\\w+-\\w+-\\d+)/raw', routes.raw)
 app.use(express.static('public'))
 
-// Redirect app
-var redirect = express()
-
-redirect.all('*', function(req, res){
-	res.redirect('http://localhost:3000/' + req.subdomains[0])
+app.use(function(req, res, next) {
+	res.status(404).render('views/error')
 })
 

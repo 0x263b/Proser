@@ -71,10 +71,8 @@ exports.preview = function(req, res) {
 
 		res.render('views/preview', {
 			title:     err || file.raw == undefined ? "Proser" : file.raw.split(/\n/)[0].replace(/^#+/g, ""),
-			raw:       err || file.raw == undefined ? "" : file.raw,
 			formatted: err || file.formatted == undefined ? "" : file.formatted,
 			updatedAt: err || file.updatedAt == undefined ? "" : file.updatedAt,
-			empty:     err || file.raw == "",
 			token:     err || token
 		})
 	})
