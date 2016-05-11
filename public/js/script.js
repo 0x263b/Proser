@@ -107,19 +107,8 @@ var send_msg = function() {
 
 
 // Bind events
-if (text_area.addEventListener) {
-	text_area.addEventListener('change', send_msg, false)
-	text_area.addEventListener('keydown', send_msg, false)
-} else if(text_area.attachEvent) {
-	text_area.attachEvent('onchange', send_msg)
-	text_area.attachEvent('keydown', send_msg)
-} else {
-	text_area.onchange = send_msg
-	text_area.onkeydown = send_msg
-}
-
-// Focus #text
-//text_area.focus()
+text_area.addEventListener('change', send_msg, false)
+text_area.addEventListener('keydown', send_msg, false)
 
 // Join the room
 socket.on('connect', function(){
@@ -131,7 +120,7 @@ socket.on('msg', display)
 socket.on('time', update_time)
 
 
-document.querySelector('#edit').addEventListener('click', function(event) {
+document.getElementById("edit").addEventListener('click', function(event) {
 	event.preventDefault()
 
 	if(body.classList.contains('editing')) {
