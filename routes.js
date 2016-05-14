@@ -14,8 +14,7 @@ var haiku = function() {
 }
 
 exports.index = function(req, res) {
-	var foundUniqueKey = false, 
-		key
+	var foundUniqueKey = false, key
 
 	var keygen = function() {
 		key = haiku()
@@ -26,7 +25,6 @@ exports.index = function(req, res) {
 		})
 	}
 
-	// Start keygen process
 	if (foundUniqueKey === false) {
 		keygen()
 	}
@@ -37,7 +35,7 @@ exports.index = function(req, res) {
 exports.edit = function(req, res) {
 	var token = req.params.token
 	File.find({ token: token }, function (err, file, count) {
-		// Flatten array
+
 		if (file[0]) {
 			file = file[0]
 		}
@@ -60,7 +58,7 @@ exports.edit = function(req, res) {
 exports.preview = function(req, res) {
 	var token = req.params.token
 	File.find({ token: token }, function (err, file, count) {
-		// Flatten array
+
 		if (file[0]) {
 			file = file[0]
 		}
@@ -81,7 +79,7 @@ exports.preview = function(req, res) {
 exports.raw = function(req, res) {
 	var token = req.params.token
 	File.find({ token: token }, function (err, file, count) {
-		// Flatten array
+
 		if (file[0]) {
 			file = file[0]
 		}
