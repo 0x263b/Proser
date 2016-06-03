@@ -36,35 +36,24 @@ nav {
 		color: #0288d1;
 		border: none;
 	}
+	#full .right a:link,
+	#full .right a:visited {
+		font-size: 14px;
+	}
 	nav img {
 		vertical-align: middle;
 	}
 	.right {
 		text-align: right;
 	}
-	.arrow {
-		cursor: pointer;
+
+	#mobile {
+		display: none;
 	}
 
-#full {
-
-}
-	#full .left a:link,
-	#full .left a:visited {
-
-	}
 	#full .right a {
 		margin-left: 10px;
 	}
-	#full .right a:link,
-	#full .right a:visited {
-		font-size: 14px;
-	}
-
-
-#mobile {
-	display: none;
-}
 
 @media (max-width: 768px) {
 	#full { display: none; }
@@ -104,8 +93,10 @@ nav {
 	border-right: 1px solid #CFD8DC;
 }
 	@media (max-width: 768px) {
-		.raw { border-right: none; } }
-
+		.raw { 
+			border-right: none; 
+		} 
+	}
 
 #text {
 	display: block;
