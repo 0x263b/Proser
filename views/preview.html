@@ -1,18 +1,35 @@
 <!doctype html>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title>{{{title}}}</title>
-	<link rel="stylesheet" href="/css/markup.css" type="text/css">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{{{title}}}</title>
+<link rel="stylesheet" href="/css/markup.css" type="text/css">
+<style>
+body {
+	padding: 0 20px;
+	max-width: 700px;
+	margin: 40px auto; }
+#timestamp {
+	font-size: 14px; }
+#links a {
+	margin-right: 5px; }
+</style>
 </head>
-
 <body>
 
 <div class="formatted">
 	<div id="formatted">{{{formatted}}}</div>
-	<div id="timestamp">{{{updatedAt}}}</div>
+	<footer>
+		<span id="timestamp">{{{updatedAt}}}</span>
+	</footer>
+	<hr>
+	<div id="links">
+		<a href="/{{{token}}}/">Edit</a>
+		<a href="/{{{token}}}/raw">View Raw</a>
+		<a href="/{{{token}}}/download?format=html">Download</a>
+	</div>
 </div>
 
 
