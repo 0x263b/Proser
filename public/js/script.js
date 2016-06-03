@@ -1,21 +1,26 @@
 "use strict"
 
+var qs = function(selector) {
+	return document.querySelector(selector)
+}
+
 var token = window.location.href.substr(window.location.href.lastIndexOf('/') + 1),
 	socket = io.connect(location.origin),
-	edited = false,
-	body = document.querySelector("body"),
-	text_area = document.getElementById('text'),
-	formatted = document.getElementById('formatted'),
-	timestamp = document.getElementById('timestamp'),
+	hide_raw = false,
+	hide_formatted = false,
+	body = qs('body'),
+	text_area = qs('#text'),
+	formatted = qs('#formatted'),
+	timestamp = qs('#timestamp'),
 	storedContent = text_area.value.replace(/\r\n/g, '\n')
 
 var update_time = function(stamp) {
 	var date = new Date(stamp)
-	var update = "Updated " + date.toLocaleDateString() + ", " + date.toLocaleTimeString()
+	var update = 'Updated ' + date.toLocaleDateString() + ", " + date.toLocaleTimeString()
 	timestamp.innerHTML = update
 }
 
-if(timestamp.innerHTML !== "") {
+if(timestamp.innerHTML !== '') {
 	update_time(timestamp.innerHTML)
 }
 
@@ -108,7 +113,7 @@ var send_msg = function() {
 
 // Bind events
 text_area.addEventListener('change', send_msg, false)
-text_area.addEventListener('keydown', send_msg, false)
+text_area.addEventListener('keyup', send_msg, false)
 
 // Join the room
 socket.on('connect', function(){
@@ -120,15 +125,17 @@ socket.on('msg', display)
 socket.on('time', update_time)
 
 
-document.getElementById("edit").addEventListener('click', function(event) {
+qs('#edit').addEventListener('click', function(event) {
 	event.preventDefault()
 
-	if(body.classList.contains('editing')) {
-		body.classList.remove('editing')
-		text_area.readOnly = true
+	if (this.classList.contains("editing")) {
+		this.className = ""
+		body.className = ""
+		this.textContent = "Edit"
 	} else {
-		body.classList.add('editing')
-		text_area.readOnly = false		
+		this.className = "editing"
+		body.className = "editing"
+		this.textContent = "Preview"
 	}
 })
 

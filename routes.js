@@ -7,10 +7,14 @@ var mongoose = require('mongoose'),
 // Heroku-like random IDs
 var haiku = function() {
 	var adjs, nouns, rnd
-	adjs = ["autumn", "hidden", "bitter", "misty", "silent", "empty", "dry", "dark", "summer", "icy", "delicate", "quiet", "white", "cool", "spring", "winter", "patient", "twilight", "dawn", "crimson", "wispy", "weathered", "blue", "billowing", "broken", "cold", "damp", "falling", "frosty", "green", "long", "late", "lingering", "bold", "little", "morning", "muddy", "old", "red", "rough", "still", "small", "sparkling", "throbbing", "shy", "wandering", "withered", "wild", "black", "young", "holy", "solitary", "fragrant", "aged", "snowy", "proud", "floral", "restless", "divine", "polished", "ancient", "purple", "lively", "nameless"]
-	nouns = ["waterfall", "river", "breeze", "moon", "rain", "wind", "sea", "morning", "snow", "lake", "sunset", "pine", "shadow", "leaf", "dawn", "glitter", "forest", "hill", "cloud", "meadow", "sun", "glade", "bird", "brook", "butterfly", "bush", "dew", "dust", "field", "fire", "flower", "firefly", "feather", "grass", "haze", "mountain", "night", "pond", "darkness", "snowflake", "silence", "sound", "sky", "shape", "surf", "thunder", "violet", "water", "wildflower", "wave", "water", "resonance", "sun", "wood", "dream", "cherry", "tree", "fog", "frost", "voice", "paper", "frog", "smoke", "star"]
+	adjs = ["aged", "ancient", "autumn", "billowing", "bitter", "black", "blue", "bold", "broken", "cold", "cool", "crimson", "damp", "dark", "dawn", "delicate", "divine", "dry", "empty", "falling", "floral", "fragrant", "frosty", "green", "hidden", "holy", "icy", "late", "lingering", "little", "lively", "long", "misty", "morning", "muddy", "nameless", "old", "patient", "polished", "proud", "purple", "quiet", "red", "restless", "rough", "shy", "silent", "small", "snowy", "solitary", "sparkling", "spring", "still", "summer", "throbbing", "twilight", "wandering", "weathered", "white", "wild", "winter", "wispy", "withered", "young"]
+	nouns = ["bird", "breeze", "brook", "bush", "butterfly", "cherry", "cloud", "darkness", "dawn", "dew", "dream", "dust", "feather", "field", "fire", "firefly", "flower", "fog", "forest", "frog", "frost", "glade", "glitter", "grass", "haze", "hill", "lake", "leaf", "meadow", "moon", "morning", "mountain", "night", "paper", "pine", "pond", "rain", "resonance", "river", "sea", "shadow", "shape", "silence", "sky", "smoke", "snow", "snowflake", "sound", "star", "sun", "sunset", "surf", "thunder", "tree", "violet", "voice", "water", "waterfall", "wave", "wildflower", "wind", "wood"]
 	rnd = Math.floor(Math.random() * Math.pow(2, 12))
 	return adjs[rnd >> 6 % 64] + "-" + nouns[rnd % 64] + "-" + rnd
+}
+
+exports.markdown = function(req, res) {
+	res.render('views/markdown')
 }
 
 exports.index = function(req, res) {
@@ -86,6 +90,40 @@ exports.raw = function(req, res) {
 
 		res.set('Content-Type', 'text/markdown')
 		res.send(err || file.raw == undefined ? "" : file.raw)
+	})
+}
+
+exports.download = function(req, res) {
+	var token = req.params.token
+	var format = req.query.format
+	File.find({ token: token }, function (err, file, count) {
+
+		if (file[0]) {
+			file = file[0]
+		}
+
+		if (typeof file.raw !== "undefined") {
+			file.formatted = marked(file.raw)
+		}
+
+		if (format === 'html') {
+			// Download unstyle html
+			res.set('Content-disposition', `attachment; filename=${token}.html`)
+			res.render('views/preview', {
+				title:     err || file.raw == undefined ? "Proser" : file.raw.split(/\n/)[0].replace(/^#+/g, ""),
+				formatted: err || file.formatted == undefined ? "" : file.formatted,
+				updatedAt: err || file.updatedAt == undefined ? "" : file.updatedAt,
+				token:     err || token
+			})
+		} else if (format === 'markdown') {
+			// Download raw markdown
+			res.set('Content-disposition', `attachment; filename=${token}.md`)
+			res.set('Content-Type', 'text/markdown')
+			res.send(err || file.raw == undefined ? "" : file.raw)
+		} else {
+			// Redirect to editor
+			res.redirect('/' + token)
+		}
 	})
 }
 

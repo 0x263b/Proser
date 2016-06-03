@@ -11,23 +11,35 @@
 
 <body>
 
-<nav>
-	<a id="edit" href="#">
-		<svg height="40" width="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-			<circle cx="20" cy="20" r="20"></circle>
-			<path d="M11,25.2525 L11,29.0025 L14.75,29.0025 L25.81,17.9425 L22.06,14.1925 L11,25.2525 L11,25.2525 Z M28.71,15.0425 C29.1,14.6525 29.1,14.0225 28.71,13.6325 L26.37,11.2925 C25.98,10.9025 25.35,10.9025 24.96,11.2925 L23.13,13.1225 L26.88,16.8725 L28.71,15.0425 L28.71,15.0425 Z" fill="white"></path>
-		</svg>
-	</a>
+<nav id="mobile">
+	<div class="left">
+		<a href="/">Proser</a>
+	</div>
+	<div class="right">
+		<a id="edit" href="#">Edit</a>
+	</div>
+</nav>
+
+<nav id="full">
+	<div class="left">
+		<a href="/">Proser</a>
+	</div>
+	<div class="right">
+		<a href="/{{{token}}}/download?format=markdown"><img src="/img/download.svg" alt="Download"> Markdown</a>
+		<a href="/{{{token}}}/download?format=html"><img src="/img/download.svg" alt="Download"> HTML</a>
+	</div>
 </nav>
 
 <div id="main">
 	<div class="raw">
-		<textarea id="text" readonly placeholder="It was a dark and stormy night...">{{{raw}}}</textarea>
+		<textarea id="text" placeholder="It was a dark and stormy night...">{{{raw}}}</textarea>
 	</div>
 
 	<div class="formatted">
 		<div id="formatted">{{{formatted}}}</div>
-		<div id="timestamp">{{{updatedAt}}}</div>
+		<footer>
+			<span id="timestamp">{{{updatedAt}}}</span>
+		</footer>
 	</div>
 </div>
 

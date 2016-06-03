@@ -71,15 +71,6 @@ h4, h5, h6 {
 h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
 	margin-top: 0; }
 
-h1 tt, h1 code,
-h2 tt, h2 code,
-h3 tt, h3 code,
-h4 tt, h4 code,
-h5 tt, h5 code,
-h6 tt, h6 code {
-	font-size: inherit;
-}
-
 hr {
 	position: relative;
 	margin: 2rem auto;
@@ -148,16 +139,18 @@ fieldset, img {
 
 code, tt {
 	margin: 0 2px;
-	padding: 0 5px;
+	padding: 5px;
 	white-space: nowrap;
-	border: 1px solid #eaeaea;
-	border-radius: 3px;
 	background-color: #f8f8f8; }
 
 pre, code {
-	font-family: "Roboto Mono", "Source Code Pro", "Menlo", "Consolas", monospace; }
+	font-size: 85%;
+	font-family: "Roboto Mono", "Source Code Pro", "Menlo", "Consolas", monospace; 
+	-moz-tab-size: 4;
+	tab-size: 4; }
 
 pre code {
+	font-size: 14px;
 	margin: 0;
 	padding: 0;
 	white-space: pre;
@@ -166,12 +159,9 @@ pre code {
 
 pre {
 	background-color: #f8f8f8;
-	border: 1px solid #ddd;
-	border-radius: 3px;
-	font-size: 14px;
 	line-height: 19px;
 	overflow: auto;
-	padding: 6px 10px;
+	padding: 15px;
 	margin: 15px 0; }
 	pre code, pre tt {
 		background-color: transparent;
@@ -194,3 +184,7 @@ sup {
 sub {
 	bottom:-.25em; }
 
+#formatted {
+	padding: 0 40px;
+	max-width: 700px;
+	margin: 40px 0; }

@@ -64,9 +64,11 @@ io.sockets.on('connection', function (socket) {
 var routes = require('./routes.js')
 
 app.get('/', routes.index)
+app.get('/markdown', routes.markdown)
 app.get('/:token(\\w+-\\w+-\\d+)/', routes.edit)
 app.get('/:token(\\w+-\\w+-\\d+)/preview', routes.preview)
 app.get('/:token(\\w+-\\w+-\\d+)/raw', routes.raw)
+app.get('/:token(\\w+-\\w+-\\d+)/download', routes.download)
 app.use(express.static('public'))
 
 app.use(function(req, res, next) {

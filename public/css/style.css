@@ -1,58 +1,92 @@
 html, body {
 	height: 100%;
 	margin: 0;
+	overflow: hidden;
 }
 
-body {
-
+@media (max-width: 768px) {
+	body.editing .raw {
+		display: block;
+	}
+	body.editing .formatted {
+		display: none;
+	}
+	.raw {
+		display: none;
+	}
 }
 
 nav {
 	position: fixed;
-	bottom: 20px;
-	right: 20px;
-	height: 40px;
+	top: 0;
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	display: flex;
+	flex-direction: row;
+	box-shadow: 0px 1px 3px #ccc;
 	z-index: 2;
 }
-
-	#edit {
-		text-decoration: none;
+	nav > div {
+		padding: 0 15px;
+		flex: 1;
+	}
+	nav a:link,
+	nav a:visited {
+		color: #0288d1;
 		border: none;
-		fill: #78909c;
 	}
-		#edit:focus {
-			outline: none;
-		}
-		.editing #edit svg {
-			fill: #c62828; 
-			animation: pulse-text 2s linear infinite;
-			-webkit-animation: pulse-text 2s linear infinite;
-		}
-	@keyframes pulse-text {
-		0%, 100% { fill: #FF8A80; }
-		50% { fill: #D50000; } 
+	nav img {
+		vertical-align: middle;
 	}
-	@-webkit-keyframes pulse-text {
-		0%, 100% { fill: #FF8A80; }
-		50% { fill: #D50000; } 
+	.right {
+		text-align: right;
+	}
+	.arrow {
+		cursor: pointer;
 	}
 
-#main {
-	display: flex;
-	width: 100%;
-	height: 100%;
+#full {
+
+}
+	#full .left a:link,
+	#full .left a:visited {
+
+	}
+	#full .right a {
+		margin-left: 10px;
+	}
+	#full .right a:link,
+	#full .right a:visited {
+		font-size: 14px;
+	}
+
+
+#mobile {
+	display: none;
 }
 
 @media (max-width: 768px) {
-	.raw {
-		display: none;
-	}
-	.editing .formatted {
-		display: none;
-	}
-	.editing .raw {
-		display: block;
-	}
+	#full { display: none; }
+	#mobile { display: flex; }
+}
+
+
+#edit {
+	text-decoration: none;
+	border: none;
+	color: #78909c;
+}
+
+#main {
+	background-color: #fff;
+	position: fixed;
+	top: 50px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+
+	display: flex;
 }
 
 	#main > div {
@@ -67,8 +101,11 @@ nav {
 
 .raw {
 	background-color: #fff;
-	border-right: 1px solid #aaa;
+	border-right: 1px solid #CFD8DC;
 }
+	@media (max-width: 768px) {
+		.raw { border-right: none; } }
+
 
 #text {
 	display: block;
@@ -92,27 +129,21 @@ nav {
 	margin: 40px 0;
 }
 
-#timestamp {
+footer {
 	font-size: 14px; 
-	color: #455a64;
 	margin-top: 50px;
 	padding: 20px 40px;
-	opacity: 0.2;
 }
-	#timestamp:hover {
-		opacity: 1;
-	}
-
 	@media (max-width: 768px) {
-		#timestamp { padding: 20px; }
+		footer { padding: 20px; }
 	}
 
-	::selection {
-		background-color: #eceff1; 
-	}
-	::-moz-selection {
-		background-color: #eceff1;
-	}
+::selection {
+	background-color: #eceff1; 
+}
+::-moz-selection {
+	background-color: #eceff1;
+}
 
 @media (max-width: 768px) {
 	#formatted {
